@@ -7,10 +7,12 @@ import { Router } from "@angular/router";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { EmailConfigComponent } from './components/email-config/email-config.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    EmailConfigComponent,
   ],
   imports: [
     BrowserModule,

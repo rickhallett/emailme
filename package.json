@@ -1,16 +1,20 @@
 {
-    "name": "universalpaperclips",
+    "name": "emailme-ng",
     "version": "0.0.0",
     "license": "MIT",
     "private": true,
     "scripts": {
       "ng": "ng",
-      "start": "ng serve",
+      "start": "nodemon app.js",
       "build": "ng build --prod",
-      "github": "ng build --prod --baseHref='https://rickhallett.github.io/ngx-tour-demo/'",
+      "github": "ng build --prod --baseHref='https://rickhallett.github.io/emailme'",
       "test": "ng test",
       "lint": "ng lint",
-      "e2e": "ng e2e"
+      "e2e": "ng e2e",
+      "dev": "concurrently --kill-others \"npm run start\" \"npm run dev-serve\" ",
+      "dev-build": "ng build --output-hashing=all",
+      "dev-serve": "ng serve --delete-output-path=false --output-hashing=all --host=0.0.0.0 --port=9440 --ssl=false --proxy-config=proxy.conf.json",
+      "mock-all": "npm run dev-build && npm run dev"
     },
     "dependencies": {
       "@angular/animations": "^5.2.0",
@@ -121,6 +125,8 @@
       "request": "^2.85.0",
       "request-promise": "^4.2.2",
       "rxjs": "^5.5.6",
+      "sails": "~0.12.14",
+        "sails-disk": "~0.10.9",
       "sanitizer": "^0.1.3",
       "secure-random-password": "^0.1.0",
       "semver": "~5.3.0",
