@@ -14,7 +14,7 @@
       "dev": "concurrently --kill-others \"npm run start\" \"npm run dev-serve\" ",
       "dev-build": "ng build --output-hashing=all",
       "dev-serve": "ng serve --delete-output-path=false --output-hashing=all --host=0.0.0.0 --port=9440 --ssl=false --proxy-config=proxy.conf.json",
-      "mock-all": "npm run dev-build && npm run dev"
+      "dev-all": "npm run dev-build && npm run dev"
     },
     "dependencies": {
       "@angular/animations": "^5.2.0",

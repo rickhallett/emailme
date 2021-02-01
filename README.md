@@ -4,4 +4,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Run
 
-`yarn mock-all`
+`yarn dev-all`
