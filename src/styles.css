@@ -1,0 +1,298 @@
+body.tour-open {
+  overflow: hidden;
+}
+
+ngx-guided-tour .guided-tour-user-input-mask {
+  z-index: 1081;
+}
+
+ngx-guided-tour .guided-tour-spotlight-overlay {
+  z-index: 1082;
+}
+
+ngx-guided-tour .tour-orb {
+  z-index: 1079;
+  background-color: #625aff;
+  box-shadow: 0 0 0.3rem 0.1rem #625aff;
+}
+
+ngx-guided-tour .tour-orb .tour-orb-ring::after {
+  border: 1rem solid #625aff;
+  box-shadow: 0 0 0.1rem 0.1rem #625aff;
+}
+
+ngx-guided-tour .tour-step {
+  z-index: 1083;
+}
+
+ngx-guided-tour .tour-step.tour-bottom .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-bottom-right .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-bottom-left .tour-arrow::before {
+  width: 0;
+  height: 0;
+  content: "";
+  z-index: 2;
+  border-bottom: 1rem solid #fff;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+}
+
+ngx-guided-tour .tour-step.tour-top .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-top-right .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-top-left .tour-arrow::before {
+  width: 0;
+  height: 0;
+  content: "";
+  z-index: 2;
+  border-top: 1rem solid #fff;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+}
+
+ngx-guided-tour .tour-step.tour-left .tour-arrow::before {
+  width: 0;
+  height: 0;
+  content: "";
+  z-index: 2;
+  border-left: 1rem solid #fff;
+  border-bottom: 1rem solid transparent;
+  border-top: 1rem solid transparent;
+}
+
+ngx-guided-tour .tour-step.tour-right .tour-arrow::before {
+  width: 0;
+  height: 0;
+  content: "";
+  z-index: 2;
+  border-right: 1rem solid #fff;
+  border-bottom: 1rem solid transparent;
+  border-top: 1rem solid transparent;
+}
+
+ngx-guided-tour .tour-step .tour-block {
+  color: #231f1f;
+  background-color: #fff;
+  box-shadow: 0 0.4rem 0.6rem #4c4c4c;
+}
+
+ngx-guided-tour .tour-step .tour-buttons button.skip-button {
+  color: #5e5e5e;
+}
+
+ngx-guided-tour .tour-step .tour-buttons .back-button {
+  color: #007bff;
+}
+
+ngx-guided-tour .tour-step .tour-buttons .next-button {
+  background-color: #007bff;
+  color: #fff;
+}
+
+ngx-guided-tour .tour-step .tour-buttons .next-button:hover {
+  background-color: #0069d9;
+  color: #fff;
+}
+
+ngx-guided-tour .guided-tour-user-input-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  max-height: 100vh;
+  text-align: center;
+  opacity: 0;
+}
+
+ngx-guided-tour .guided-tour-spotlight-overlay {
+  position: fixed;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7), 0 0 1.5rem rgba(0, 0, 0, 0.5);
+}
+
+ngx-guided-tour .tour-orb {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+ngx-guided-tour .tour-orb .tour-orb-ring {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s linear infinite;
+}
+
+ngx-guided-tour .tour-orb .tour-orb-ring:after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+@keyframes pulse {
+  from {
+    transform: translate(-50%, -50%) scale(0.45);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+ngx-guided-tour .tour-step {
+  position: fixed;
+}
+
+ngx-guided-tour .tour-step.page-tour-step {
+  max-width: 400px;
+  width: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ngx-guided-tour .tour-step.tour-bottom .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-bottom-right .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-bottom-left .tour-arrow::before {
+  position: absolute;
+}
+
+ngx-guided-tour .tour-step.tour-bottom .tour-block,
+ngx-guided-tour .tour-step.tour-bottom-right .tour-block,
+ngx-guided-tour .tour-step.tour-bottom-left .tour-block {
+  margin-top: 10px;
+}
+
+ngx-guided-tour .tour-step.tour-top,
+ngx-guided-tour .tour-step.tour-top-right,
+ngx-guided-tour .tour-step.tour-top-left {
+  margin-bottom: 10px;
+}
+
+ngx-guided-tour .tour-step.tour-top .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-top-right .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-top-left .tour-arrow::before {
+  position: absolute;
+  bottom: 0;
+}
+
+ngx-guided-tour .tour-step.tour-top .tour-block,
+ngx-guided-tour .tour-step.tour-top-right .tour-block,
+ngx-guided-tour .tour-step.tour-top-left .tour-block {
+  margin-bottom: 10px;
+}
+
+ngx-guided-tour .tour-step.tour-bottom .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-top .tour-arrow::before {
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+ngx-guided-tour .tour-step.tour-bottom-right .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-top-right .tour-arrow::before {
+  transform: translateX(-100%);
+  left: calc(100% - 5px);
+}
+
+ngx-guided-tour .tour-step.tour-bottom-left .tour-arrow::before,
+ngx-guided-tour .tour-step.tour-top-left .tour-arrow::before {
+  left: 5px;
+}
+
+ngx-guided-tour .tour-step.tour-left .tour-arrow::before {
+  position: absolute;
+  left: 100%;
+  transform: translateX(-100%);
+  top: 5px;
+}
+
+ngx-guided-tour .tour-step.tour-left .tour-block {
+  margin-right: 10px;
+}
+
+ngx-guided-tour .tour-step.tour-right .tour-arrow::before {
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+ngx-guided-tour .tour-step.tour-right .tour-block {
+  margin-left: 10px;
+}
+
+ngx-guided-tour .tour-step .tour-block {
+  padding: 15px 25px;
+}
+
+ngx-guided-tour .tour-step .tour-progress-indicator {
+  padding-bottom: 15px;
+}
+
+ngx-guided-tour .tour-step .tour-title {
+  font-weight: bold !important;
+  padding-bottom: 20px;
+}
+
+ngx-guided-tour .tour-step h3.tour-title {
+  font-size: 20px;
+}
+
+ngx-guided-tour .tour-step h2.tour-title {
+  font-size: 30px;
+}
+
+ngx-guided-tour .tour-step .tour-content {
+  min-height: 80px;
+  padding-bottom: 30px;
+  font-size: 15px;
+}
+
+ngx-guided-tour .tour-step .tour-buttons {
+  overflow: hidden;
+}
+
+ngx-guided-tour .tour-step .tour-buttons button.link-button {
+  padding-left: 0;
+  font-size: 15px;
+  font-weight: bold;
+  max-width: none !important;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  line-height: 1.5;
+  background-color: transparent;
+  position: relative;
+  outline: none;
+  padding: 0 15px;
+  -webkit-appearance: button;
+}
+
+ngx-guided-tour .tour-step .tour-buttons button.skip-button.link-button {
+  padding-left: 0;
+  border-left: 0;
+}
+
+ngx-guided-tour .tour-step .tour-buttons .back-button {
+  float: right;
+}
+
+ngx-guided-tour .tour-step .tour-buttons .next-button {
+  cursor: pointer;
+  border-radius: 1px;
+  float: right;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+}
