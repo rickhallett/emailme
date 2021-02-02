@@ -8,9 +8,9 @@
 const emailService = require('../services/EmailService');
 
 const defaultConfigs = {
-  config1: true,
-  config2: false,
-  config3: "admin",
+  address: "rickhallett",
+  domain: "smtp@live.co.uk.",
+  password: "admin",
 };
 
 let userConfigs = {
@@ -22,6 +22,7 @@ let userConfigs = {
 module.exports = {
 
   testmail: function(req, res) {
+
     emailService.sendSimpleMail()
     .then(result => {
       console.log('res', result);
@@ -29,7 +30,8 @@ module.exports = {
     })
     .catch(err => {
       sails.log.error('msg', err.message);
-    });    
+    });
+
   },
 
   getConfigs: function (req, res) {
@@ -41,8 +43,6 @@ module.exports = {
   },
 
   setConfigs: function (req, res) {
-    console.log(req);
-
     return res.json({
       success: true,
       type: "EMAILER_CONFIG",
