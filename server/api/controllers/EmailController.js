@@ -18,24 +18,6 @@ let userConfigs = {
 };
 
 module.exports = {
-  getTest: function (req, res) {
-    return res.json({
-      success: true,
-      type: "EMAILER_TESTS",
-      data: null,
-    });
-  },
-
-  postTest: function (req, res) {
-    console.log(req);
-
-    return res.json({
-      success: true,
-      type: "EMAILER_TESTS",
-      data: null,
-    });
-  },
-
   getConfigs: function (req, res) {
     return res.json({
       success: true,

@@ -42,7 +42,7 @@ module.exports.blueprints = {
    * requests.                                                                *
    *                                                                          *
    ***************************************************************************/
-  // actions: true,
+  actions: true,
   /***************************************************************************
    *                                                                          *
    * RESTful routes (`sails.config.blueprints.rest`)                          *
@@ -65,7 +65,7 @@ module.exports.blueprints = {
    * (combine w/ policies, etc.)                                              *
    *                                                                          *
    ***************************************************************************/
-  // rest: true,
+  rest: true,
   /***************************************************************************
    *                                                                          *
    * Shortcut routes are simple helpers to provide access to a                *

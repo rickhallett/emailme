@@ -45,9 +45,6 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
 
-  "get api/emailer/test": "EmailController.getTest",
-  "post api/emailer/test": "EmailController.postTest",
-
-  "get api/emailer/config": "EmailController.getConfigs",
-  "post api/emailer/config": "EmailController.setConfigs",
+  "get /api/emailer/config": "EmailController.getConfigs",
+  "post /api/emailer/config": "EmailController.setConfigs",
 };
