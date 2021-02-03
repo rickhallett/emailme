@@ -19,7 +19,9 @@ export class EmailConfigComponent implements OnInit {
   public configForm: FormGroup = new FormGroup({
     'domain': new FormControl(),
     'port': new FormControl()
-  })
+  });
+
+  public dev: false;
 
   constructor() { }
 

@@ -13,12 +13,6 @@ const defaultConfigs = {
   password: "admin",
 };
 
-let userConfigs = {
-  config1: false,
-  config2: false,
-  config3: "user",
-};
-
 module.exports = {
 
   testmail: function(req, res) {
