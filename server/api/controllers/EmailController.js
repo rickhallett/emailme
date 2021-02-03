@@ -21,9 +21,15 @@ module.exports = {
     .then(result => {
       console.log('res', result);
       console.log('typeof res', typeof result);
+
+      res.status(200);
+      res.send('Mail sent');
     })
     .catch(err => {
       sails.log.error('msg', err.message);
+      // if (err.message.includes('ECONNREFUSED')) {
+      //   sails.log.error('Please check your firewall allows incoming connections on port 25');
+      // }
     });
 
   },

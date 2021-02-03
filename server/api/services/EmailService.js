@@ -11,6 +11,9 @@ module.exports = {
 
   sendSimpleMail: function () {
 
+    /**
+     * NB: this transporter requires any firewall to allow connections through port 25
+     */
     const transporter = nodemailer.createTransport({
       port: 25,
       host: 'm1-air.local',
