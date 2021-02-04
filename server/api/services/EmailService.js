@@ -9,7 +9,7 @@ const nodemailer = require('nodemailer');
 
 module.exports = {
 
-  sendSimpleMail: function () {
+  sendLocalMail: function () {
 
     /**
      * NB: this transporter requires any firewall to allow connections through port 25
@@ -35,10 +35,8 @@ module.exports = {
 
       transporter.sendMail(message, (error, info) => {
         if (error) {
-            // return console.log(error);
             return reject(new Error(error))
         }
-        // console.log('Message sent: %s', info.messageId);
 
         return resolve(info);
       });

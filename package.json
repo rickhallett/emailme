@@ -114,6 +114,7 @@
     "ngx-tree-select": "^0.14.0",
     "node-fetch": "^2.3.0",
     "nodemailer": "^6.4.17",
+    "nodemon": "^2.0.7",
     "passport": "~0.3.2",
     "passport-local": "~1.0.0",
     "pnotify": "^3.2.1",

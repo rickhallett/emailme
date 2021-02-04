@@ -7,6 +7,8 @@
 
 const fs = require('fs');
 const emailService = require('../services/EmailService');
+const nodemon = require('nodemon');
+const commandLineUsage = require('command-line-usage');
 
 const defaultConfigs = {
   address: "rickhallett",
@@ -16,50 +18,26 @@ const defaultConfigs = {
 
 module.exports = {
 
-  testmail: function(req, res) {
+  localmail: function(req, res) {
 
-    emailService.sendSimpleMail()
+    emailService.sendLocalMail()
     .then(result => {
-      console.log('res', result);
-      console.log('typeof res', typeof result);
-
-      // TODO: find a way of grabbing only the reponse properties we want for more intelligent response processing
-      // res.send(res) automatically
-      // const util = require('util');
-      // console.log(util.inspect(res, {depth: null}));
-      // fs.writeFileSync('output.txt', util.inspect(res, {depth: null}), 'utf-8');
-
-      // Object.keys(res).map(k => {
-      //   if (res.hasOwnProperty(k)) {
-      //     console.log(k)
-      //   }
-      // });
-
-      console.log(res);
-
-      // const payload = {
-      //   accepted: res.accepted,
-      //   rejected: res.rejected,
-      //   envelopeTime: res.envelopeTime,
-      //   messageTime: res.messageTime,
-      //   messageSize: res.messageSize,
-      //   response: res.response,
-      //   envelope: res.envelope,
-      //   messageId: res.messageId
-      // };
-
+      sails.log.info(result);
       res.status(200);
-
-      
-
-      res.send(payload);
-
+      res.send(result);
     })
     .catch(err => {
+      // TODO: why is port 25 blocked sometimes and not others?
+      // TODO: why is nodemailer using 127.0.0.1 sometimes, and my machine IP at other times?
+      
       sails.log.error('msg', err.message);
-      // if (err.message.includes('ECONNREFUSED')) {
-      //   sails.log.error('Please check your firewall allows incoming connections on port 25');
-      // }
+      if (err.message.includes('ECONNREFUSED')) {
+        sails.log.error('Please check your firewall allows incoming connections on port 25');
+        if (sails.config.environment === 'development') {
+          sails.log.info('Restarting server; sometimes the dynamic IP has changed and is allowed through my local firewall.');
+          fs.writeFileSync('restart.js', `// restart ${Date.now()} ${err.message}\n`, 'utf-8', {flag:'a+'});
+        }
+      }
     });
 
   },
