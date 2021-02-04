@@ -55,7 +55,9 @@ module.exports = {
 
   sendToEtherealSmtp: function () {
     return new Promise((resolve, reject) => {
-      require("./etherealTransporter").sendMail(outgoingMessage, (err, success) => {
+      require("./etherealTransporter")
+      .createDefault()
+      .sendMail(outgoingMessage, (err, success) => {
         if (err) return reject(new Error(err));
         else return resolve(success);
       });
@@ -64,7 +66,9 @@ module.exports = {
 
   sendToEtherealWithAttachment: function () {
     return new Promise((resolve, reject) => {
-      require("./etherealTransporter").sendMail(messageWithAttachments, (err, success) => {
+      require("./etherealTransporter")
+      .createDefault()
+      .sendMail(messageWithAttachments, (err, success) => {
         if (err) return reject(new Error(err));
         else return resolve(success);
       });
