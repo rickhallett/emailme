@@ -7,25 +7,12 @@
 
 const fs = require('fs');
 const emailService = require('../services/EmailService');
-const nodemon = require('nodemon');
-const commandLineUsage = require('command-line-usage');
-
-const defaultConfigs = {
-  address: "rickhallett",
-  domain: "smtp@live.co.uk.",
-  password: "admin",
-};
 
 module.exports = {
 
-  localmail: function(req, res) {
-
+  localMail: function(req, res) {
     emailService.sendLocalMail()
-    .then(result => {
-      sails.log.info(result);
-      res.status(200);
-      res.send(result);
-    })
+    .then(this.successHandler)
     .catch(err => {
       // TODO: why is port 25 blocked sometimes and not others?
       // TODO: why is nodemailer using 127.0.0.1 sometimes, and my machine IP at other times?
@@ -38,8 +25,28 @@ module.exports = {
           fs.writeFileSync('restart.js', `// restart ${Date.now()} ${err.message}\n`, 'utf-8', {flag:'a+'});
         }
       }
-    });
 
+      res.status(500);
+      res.send(err);
+    });
+  },
+
+  etherealMail: function(req, res) {
+    emailService.sendToEtherealSmtp()
+    .then((result) => this.successHandler.apply(this, [result, res]))
+    .catch((error) => this.successHandler.apply(this, [error, res]))
+  },
+
+  etherealMailAttachment: function(req, res) {
+    emailService.sendToEtherealWithAttachment()
+    .then((result) => this.successHandler.apply(this, [result, res]))
+    .catch((error) => this.successHandler.apply(this, [error, res]))
+  },
+
+  mailtrapMailAttachment: function(req, res) {
+    emailService.sendToMailTrapWithAttachment()
+    .then((result) => this.successHandler.apply(this, [result, res]))
+    .catch((error) => this.successHandler.apply(this, [error, res]))
   },
 
   getConfigs: function (req, res) {
@@ -57,4 +64,16 @@ module.exports = {
       data: null,
     });
   },
+
+  successHandler: function(result, res) {
+    sails.log.info(result);
+    res.status(200);
+    res.send(result);
+  },
+
+  errorHandler: function(error, res) {
+    sails.log.error(error);
+    res.status(500);
+    res.send(error);
+  }
 };

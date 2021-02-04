@@ -5,72 +5,82 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
-const nodemailer = require('nodemailer');
-
-module.exports = {
-
-  sendLocalMail: function () {
-
-    /**
-     * NB: this transporter requires any firewall to allow connections through port 25
-     */
-    const transporter = nodemailer.createTransport({
-      port: 25,
-      host: 'm1-air.local',
-      tls: {
-        rejectUnauthorized: false
-      },
-    });
-  
-    var message = {
-      from: 'kaishin@m1-air.local',
-      to: 'kaishin@m1-air.local',
-      subject: 'Test Email',
-      text: 'Please confirm your email',
-      html: '<p>Please confirm your email</p>'
-    };
-  
-
-    return new Promise((resolve, reject) => {
-
-      transporter.sendMail(message, (error, info) => {
-        if (error) {
-            return reject(new Error(error))
-        }
-
-        return resolve(info);
-      });
-      
-    })
-
-    
-  },
-
-  sendWithDkim: function () {
-    
-  },
-
-  sendFromSmtp: function () {
-
-  }
-    
+const localMessage = {
+  from: "kaishin@m1-air.local",
+  to: "kaishin@m1-air.local",
+  subject: "Test Email",
+  text: "Please confirm your email",
+  html: "<p>Please confirm your email</p>",
 };
 
+const outgoingMessage = {
+  from: '"Example Team" <from@example.com>',
+  to: "user1@example.com, user2@example.com",
+  subject: "Nice Nodemailer test",
+  text: "Hey there, it’s our first message sent with Nodemailer ;) ",
+};
 
-// const sendmail = require("sendmail")({
-//   logger: {
-//     debug: console.log,
-//     info: console.info,
-//     warn: console.warn,
-//     error: console.error,
-//   },
-//   silent: false,
-//   dkim: { // Default: False
-//     privateKey: fs.readFileSync('./dkim-private.pem', 'utf8'),
-//     keySelector: 'mydomainkey'
-//   },
-//   devPort: 1025, // Default: False
-//   devHost: 'localhost', // Default: localhost
-//   smtpPort: 2525, // Default: 25
-//   smtpHost: 'localhost' // Default: -1 - extra smtp host after resolveMX
-// });
+const messageWithAttachments = {
+  from: "from@example.com",
+  to: "test@example.com",
+  subject: "Test Nodemailer with Mailtrap",
+
+  html: "<h1>Attachments</h1>",
+  attachments: [
+    {
+      // utf-8 string as an attachment
+      filename: "text.txt",
+      content: "Attachments",
+    },
+    {
+      filename: "logo",
+      path: "/Users/kaishin/dev/ts/emailme/server/api/services/doge.ico",
+    },
+    {
+      filename: "pdf",
+      path: "/Users/kaishin/dev/ts/emailme/server/api/services/blockH.pdf",
+    },
+  ],
+};
+
+module.exports = {
+  sendLocalMail: function () {
+    return new Promise((resolve, reject) => {
+      require("./localTransporter").sendMail(localMessage, (err, success) => {
+        if (err) return reject(new Error(err));
+        else return resolve(success);
+      });
+    });
+  },
+
+  sendToEtherealSmtp: function () {
+    return new Promise((resolve, reject) => {
+      require("./etherealTransporter").sendMail(outgoingMessage, (err, success) => {
+        if (err) return reject(new Error(err));
+        else return resolve(success);
+      });
+    });
+  },
+
+  sendToEtherealWithAttachment: function () {
+    return new Promise((resolve, reject) => {
+      require("./etherealTransporter").sendMail(messageWithAttachments, (err, success) => {
+        if (err) return reject(new Error(err));
+        else return resolve(success);
+      });
+    });
+  },
+
+  sendToMailTrapWithAttachment: function () {
+    return new Promise((resolve, reject) => {
+      require("./mailtrapTransporter").sendMail(messageWithAttachments, (err, success) => {
+        if (err) return reject(new Error(err));
+        else return resolve(success);
+      });
+    });
+  },
+
+  sendWithDkim: function () {},
+
+  sendFromSmtp: function () {},
+};
