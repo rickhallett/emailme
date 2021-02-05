@@ -9,6 +9,27 @@ const fs = require("fs");
 const emailService = require("../services/EmailService");
 
 module.exports = {
+  /**
+   * Features:
+   * 1. checks request for optional fields (cc, bcc, attachments) and configures the transports/messages respectively
+   * 2. server side requirements for certain fields (from, to, subject, body)
+   */
+  sendEmail: function (req, res) {
+    //temp just to check wiring
+    emailService
+      .sendToMailTrapSmtp()
+      .then((result) => this.successHandler.apply(this, [result, res]))
+      .catch((error) => this.successHandler.apply(this, [error, res]));
+
+    // real version needs to pull properties of req and construct the email
+  },
+
+  setSmtpConfigs: function (req, res) {},
+
+  /**
+   * TESTING METHODS
+   */
+
   localMail: (req, res) => {
     emailService
       .sendLocalMail()

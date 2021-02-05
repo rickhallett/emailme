@@ -1,6 +1,6 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { config } from "process";
 
 @Component({
   selector: "app-email-config",
@@ -14,6 +14,7 @@ export class EmailConfigComponent implements OnInit {
     bcc: new FormControl(),
     subject: new FormControl(),
     body: new FormControl(),
+    attachments: new FormControl(),
   });
 
   public configForm: FormGroup = new FormGroup({
@@ -21,19 +22,29 @@ export class EmailConfigComponent implements OnInit {
     port: new FormControl(),
     username: new FormControl(),
     password: new FormControl(),
+    dkim: new FormControl(),
   });
 
   public dev: false;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {}
 
   onSubmitEmail() {
     console.log(this.emailForm);
+
+    this.http
+      .get("http://localhost:1337/email/sendEmail")
+      .subscribe((response) => {
+        console.log("after http");
+        console.log(response);
+      });
   }
 
   onSubmitConfig() {
     console.log(this.configForm);
   }
+
+  checkExistingConfigs() {}
 }

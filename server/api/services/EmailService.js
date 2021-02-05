@@ -43,6 +43,23 @@ module.exports = {
     });
   },
 
+  /**
+   * SPEC REQUIREMENT
+   */
+  sendToMailTrapSmtp: function () {
+    return new Promise((resolve, reject) => {
+      require("./mailtrapTransporter")
+        .createDefault()
+        .sendMail(messageOptions.outgoingMessage, (err, success) => {
+          if (err) return reject(new Error(err));
+          else return resolve(success);
+        });
+    });
+  },
+
+  /**
+   * SPEC REQUIREMENT
+   */
   sendToMailTrapWithAttachment: function () {
     return new Promise((resolve, reject) => {
       require("./mailtrapTransporter")
@@ -68,17 +85,9 @@ module.exports = {
     });
   },
 
-  sendToMailTrapWithHTMLFormatting: function () {
-    return new Promise((resolve, reject) => {
-      require("./mailtrapTransporter")
-        .createDefault()
-        .sendMail(messageOptions.messageWithAttachments, (err, success) => {
-          if (err) return reject(new Error(err));
-          else return resolve(success);
-        });
-    });
-  },
-
+  /**
+   * Can potentially be used to create basic 'templates' to create more attractive emails if these are ever needed.
+   */
   scriptHtmlFromJs: () => {
     const Mailgen = require("mailgen");
 
@@ -113,5 +122,8 @@ module.exports = {
     });
   },
 
-  sendFromSmtp: function () {},
+  /**
+   * 1. use local storage for POC
+   */
+  configureSmtpServer: () => {},
 };
