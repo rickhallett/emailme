@@ -5,16 +5,19 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
-const mailgen = require('mailgen');
-const messageOptions = require('./messageOptions');
+const mailgen = require("mailgen");
+const messageOptions = require("./messageOptions");
 
 module.exports = {
   sendLocalMail: function () {
     return new Promise((resolve, reject) => {
-      require("./localTransporter").sendMail(messageOptions.localMessage, (err, success) => {
-        if (err) return reject(new Error(err));
-        else return resolve(success);
-      });
+      require("./localTransporter").sendMail(
+        messageOptions.localMessage,
+        (err, success) => {
+          if (err) return reject(new Error(err));
+          else return resolve(success);
+        }
+      );
     });
   },
 
@@ -43,14 +46,11 @@ module.exports = {
   sendToMailTrapWithAttachment: function () {
     return new Promise((resolve, reject) => {
       require("./mailtrapTransporter")
-      .createDefault()
-      .sendMail(
-        messageOptions.messageWithAttachments,
-        (err, success) => {
+        .createDefault()
+        .sendMail(messageOptions.messageWithAttachments, (err, success) => {
           if (err) return reject(new Error(err));
           else return resolve(success);
-        }
-      );
+        });
     });
   },
 
@@ -71,43 +71,46 @@ module.exports = {
   sendToMailTrapWithHTMLFormatting: function () {
     return new Promise((resolve, reject) => {
       require("./mailtrapTransporter")
-      .createDefault()
-      .sendMail(messageOptions.messageWithAttachments, (err, success) => {
-        if (err) return reject(new Error(err));
-        else return resolve(success);
-      });
+        .createDefault()
+        .sendMail(messageOptions.messageWithAttachments, (err, success) => {
+          if (err) return reject(new Error(err));
+          else return resolve(success);
+        });
     });
   },
 
   scriptHtmlFromJs: () => {
-    const Mailgen = require('mailgen');
+    const Mailgen = require("mailgen");
 
     // Configure mailgen by setting a theme and your product info
     const mailGenerator = new Mailgen({
-        theme: 'default',
-        product: {
-            // Appears in header & footer of e-mails
-            name: 'Mailgen',
-            link: 'https://mailgen.js/',
-            // Optional product logo
-            logo: 'https://mailgen.js/img/logo.png'
-        }
+      theme: "default",
+      product: {
+        // Appears in header & footer of e-mails
+        name: "Mailgen",
+        link: "https://mailgen.js/",
+        // Optional product logo
+        logo: "https://mailgen.js/img/logo.png",
+      },
     });
 
     return new Promise((resolve, reject) => {
       const transporter = require("./mailtrapTransporter").createDefault();
 
       const emailBody = mailGenerator.generate(messageOptions.emailFromMailGen);
-      const emailText = mailGenerator.generatePlaintext(messageOptions.emailFromMailGen);
+      const emailText = mailGenerator.generatePlaintext(
+        messageOptions.emailFromMailGen
+      );
       require("fs").writeFileSync("preview.html", emailBody, "utf8");
 
-      transporter.sendMail(messageOptions.generateEmailBody(emailBody), (err, success) => {
+      transporter.sendMail(
+        messageOptions.generateEmailBody(emailBody),
+        (err, success) => {
           if (err) return reject(new Error(err));
           return resolve(success);
-        });
+        }
+      );
     });
-
-    
   },
 
   sendFromSmtp: function () {},

@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { EmailConfigComponent } from './email-config.component';
+import { EmailConfigComponent } from "./email-config.component";
 
-describe('EmailConfigComponent', () => {
+describe("EmailConfigComponent", () => {
   let component: EmailConfigComponent;
   let fixture: ComponentFixture<EmailConfigComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EmailConfigComponent ]
-    })
-    .compileComponents();
+      declarations: [EmailConfigComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('EmailConfigComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -11,10 +11,10 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: EmailConfigComponent
-      }
-    ]
-  }
+        component: EmailConfigComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({

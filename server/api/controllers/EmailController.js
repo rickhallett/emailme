@@ -5,57 +5,70 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-const fs = require('fs');
-const emailService = require('../services/EmailService');
+const fs = require("fs");
+const emailService = require("../services/EmailService");
 
 module.exports = {
-
   localMail: (req, res) => {
-    emailService.sendLocalMail()
-    .then(this.successHandler)
-    .catch(err => {
-      // TODO: why is port 25 blocked sometimes and not others?
-      // TODO: why is nodemailer using 127.0.0.1 sometimes, and my machine IP at other times?
-      
-      sails.log.error('msg', err.message);
-      if (err.message.includes('ECONNREFUSED')) {
-        sails.log.error('Please check your firewall allows incoming connections on port 25');
-        if (sails.config.environment === 'development') {
-          sails.log.info('Restarting server; sometimes the dynamic IP has changed and is allowed through my local firewall.');
-          fs.writeFileSync('restart.js', `// restart ${Date.now()} ${err.message}\n`, 'utf-8', {flag:'a+'});
-        }
-      }
+    emailService
+      .sendLocalMail()
+      .then(this.successHandler)
+      .catch((err) => {
+        // TODO: why is port 25 blocked sometimes and not others?
+        // TODO: why is nodemailer using 127.0.0.1 sometimes, and my machine IP at other times?
 
-      res.status(500);
-      res.send(err);
-    });
+        sails.log.error("msg", err.message);
+        if (err.message.includes("ECONNREFUSED")) {
+          sails.log.error(
+            "Please check your firewall allows incoming connections on port 25"
+          );
+          if (sails.config.environment === "development") {
+            sails.log.info(
+              "Restarting server; sometimes the dynamic IP has changed and is allowed through my local firewall."
+            );
+            fs.writeFileSync(
+              "restart.js",
+              `// restart ${Date.now()} ${err.message}\n`,
+              "utf-8",
+              { flag: "a+" }
+            );
+          }
+        }
+
+        res.status(500);
+        res.send(err);
+      });
   },
 
-  etherealMail: function(req, res) {
-    emailService.sendToEtherealSmtp()
-    .then((result) => this.successHandler.apply(this, [result, res]))
-    .catch((error) => this.successHandler.apply(this, [error, res]))
+  etherealMail: function (req, res) {
+    emailService
+      .sendToEtherealSmtp()
+      .then((result) => this.successHandler.apply(this, [result, res]))
+      .catch((error) => this.successHandler.apply(this, [error, res]));
   },
 
   etherealMailAttachment: function (req, res) {
-    emailService.sendToEtherealWithAttachment()
-    .then((result) => this.successHandler.apply(this, [result, res]))
-    .catch((error) => this.successHandler.apply(this, [error, res]))
+    emailService
+      .sendToEtherealWithAttachment()
+      .then((result) => this.successHandler.apply(this, [result, res]))
+      .catch((error) => this.successHandler.apply(this, [error, res]));
   },
 
   mailtrapMailAttachment: function (req, res) {
-    emailService.sendToMailTrapWithAttachment()
-    .then((result) => this.successHandler.apply(this, [result, res]))
-    .catch((error) => this.successHandler.apply(this, [error, res]))
+    emailService
+      .sendToMailTrapWithAttachment()
+      .then((result) => this.successHandler.apply(this, [result, res]))
+      .catch((error) => this.successHandler.apply(this, [error, res]));
   },
 
-  mailtrapScriptFromJs: function(req, res) {
-    emailService.scriptHtmlFromJs()
-    .then((result) => this.successHandler.apply(this, [result, res]))
-    .catch((error) => this.successHandler.apply(this, [error, res]))
+  mailtrapScriptFromJs: function (req, res) {
+    emailService
+      .scriptHtmlFromJs()
+      .then((result) => this.successHandler.apply(this, [result, res]))
+      .catch((error) => this.successHandler.apply(this, [error, res]));
   },
 
-  getConfigs: function(req, res) {
+  getConfigs: function (req, res) {
     return res.json({
       success: true,
       type: "EMAILER_CONFIG",
@@ -71,15 +84,15 @@ module.exports = {
     });
   },
 
-  successHandler: function(result, res) {
+  successHandler: function (result, res) {
     sails.log.info(result);
     res.status(200);
     res.send(result);
   },
 
-  errorHandler: function(error, res) {
+  errorHandler: function (error, res) {
     sails.log.error(error);
     res.status(500);
     res.send(error);
-  }
+  },
 };
