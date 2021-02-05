@@ -10,7 +10,7 @@ const emailService = require('../services/EmailService');
 
 module.exports = {
 
-  localMail: function(req, res) {
+  localMail: (req, res) => {
     emailService.sendLocalMail()
     .then(this.successHandler)
     .catch(err => {
@@ -37,19 +37,25 @@ module.exports = {
     .catch((error) => this.successHandler.apply(this, [error, res]))
   },
 
-  etherealMailAttachment: function(req, res) {
+  etherealMailAttachment: function (req, res) {
     emailService.sendToEtherealWithAttachment()
     .then((result) => this.successHandler.apply(this, [result, res]))
     .catch((error) => this.successHandler.apply(this, [error, res]))
   },
 
-  mailtrapMailAttachment: function(req, res) {
+  mailtrapMailAttachment: function (req, res) {
     emailService.sendToMailTrapWithAttachment()
     .then((result) => this.successHandler.apply(this, [result, res]))
     .catch((error) => this.successHandler.apply(this, [error, res]))
   },
 
-  getConfigs: function (req, res) {
+  mailtrapScriptFromJs: function(req, res) {
+    emailService.scriptHtmlFromJs()
+    .then((result) => this.successHandler.apply(this, [result, res]))
+    .catch((error) => this.successHandler.apply(this, [error, res]))
+  },
+
+  getConfigs: function(req, res) {
     return res.json({
       success: true,
       type: "EMAILER_CONFIG",

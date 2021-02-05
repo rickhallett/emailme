@@ -34,6 +34,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+server/api/services/localTransporter.js
 server/api/services/etherealTransporter.js
 server/api/services/mailtrapTransporter.js
 server/api/services/ethereal_configs.txt

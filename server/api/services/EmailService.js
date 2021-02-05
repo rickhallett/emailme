@@ -5,48 +5,13 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
-const localMessage = {
-  from: "kaishin@m1-air.local",
-  to: "kaishin@m1-air.local",
-  subject: "Test Email",
-  text: "Please confirm your email",
-  html: "<p>Please confirm your email</p>",
-};
-
-const outgoingMessage = {
-  from: '"Example Team" <from@example.com>',
-  to: "user1@example.com, user2@example.com",
-  subject: "Nice Nodemailer test",
-  text: "Hey there, it’s our first message sent with Nodemailer ;) ",
-};
-
-const messageWithAttachments = {
-  from: "from@example.com",
-  to: "test@example.com",
-  subject: "Test Nodemailer with Mailtrap",
-
-  html: "<h1>Attachments</h1>",
-  attachments: [
-    {
-      // utf-8 string as an attachment
-      filename: "text.txt",
-      content: "Attachments",
-    },
-    {
-      filename: "logo",
-      path: "/Users/kaishin/dev/ts/emailme/server/api/services/doge.ico",
-    },
-    {
-      filename: "pdf",
-      path: "/Users/kaishin/dev/ts/emailme/server/api/services/blockH.pdf",
-    },
-  ],
-};
+const mailgen = require('mailgen');
+const messageOptions = require('./messageOptions');
 
 module.exports = {
   sendLocalMail: function () {
     return new Promise((resolve, reject) => {
-      require("./localTransporter").sendMail(localMessage, (err, success) => {
+      require("./localTransporter").sendMail(messageOptions.localMessage, (err, success) => {
         if (err) return reject(new Error(err));
         else return resolve(success);
       });
@@ -56,35 +21,94 @@ module.exports = {
   sendToEtherealSmtp: function () {
     return new Promise((resolve, reject) => {
       require("./etherealTransporter")
-      .createDefault()
-      .sendMail(outgoingMessage, (err, success) => {
-        if (err) return reject(new Error(err));
-        else return resolve(success);
-      });
+        .createDefault()
+        .sendMail(messageOptions.outgoingMessage, (err, success) => {
+          if (err) return reject(new Error(err));
+          else return resolve(success);
+        });
     });
   },
 
   sendToEtherealWithAttachment: function () {
     return new Promise((resolve, reject) => {
       require("./etherealTransporter")
-      .createDefault()
-      .sendMail(messageWithAttachments, (err, success) => {
-        if (err) return reject(new Error(err));
-        else return resolve(success);
-      });
+        .createDefault()
+        .sendMail(messageOptions.messageWithAttachments, (err, success) => {
+          if (err) return reject(new Error(err));
+          else return resolve(success);
+        });
     });
   },
 
   sendToMailTrapWithAttachment: function () {
     return new Promise((resolve, reject) => {
-      require("./mailtrapTransporter").sendMail(messageWithAttachments, (err, success) => {
+      require("./mailtrapTransporter")
+      .createDefault()
+      .sendMail(
+        messageOptions.messageWithAttachments,
+        (err, success) => {
+          if (err) return reject(new Error(err));
+          else return resolve(success);
+        }
+      );
+    });
+  },
+
+  /**
+   * NB: NOT TESTED
+   */
+  sendToMailTrapWithDKIN: function () {
+    return new Promise((resolve, reject) => {
+      require("./mailtrapTransporter")
+        .configureDKIM()
+        .sendMail(messageOptions.messageWithAttachments, (err, success) => {
+          if (err) return reject(new Error(err));
+          else return resolve(success);
+        });
+    });
+  },
+
+  sendToMailTrapWithHTMLFormatting: function () {
+    return new Promise((resolve, reject) => {
+      require("./mailtrapTransporter")
+      .createDefault()
+      .sendMail(messageOptions.messageWithAttachments, (err, success) => {
         if (err) return reject(new Error(err));
         else return resolve(success);
       });
     });
   },
 
-  sendWithDkim: function () {},
+  scriptHtmlFromJs: () => {
+    const Mailgen = require('mailgen');
+
+    // Configure mailgen by setting a theme and your product info
+    const mailGenerator = new Mailgen({
+        theme: 'default',
+        product: {
+            // Appears in header & footer of e-mails
+            name: 'Mailgen',
+            link: 'https://mailgen.js/',
+            // Optional product logo
+            logo: 'https://mailgen.js/img/logo.png'
+        }
+    });
+
+    return new Promise((resolve, reject) => {
+      const transporter = require("./mailtrapTransporter").createDefault();
+
+      const emailBody = mailGenerator.generate(messageOptions.emailFromMailGen);
+      const emailText = mailGenerator.generatePlaintext(messageOptions.emailFromMailGen);
+      require("fs").writeFileSync("preview.html", emailBody, "utf8");
+
+      transporter.sendMail(messageOptions.generateEmailBody(emailBody), (err, success) => {
+          if (err) return reject(new Error(err));
+          return resolve(success);
+        });
+    });
+
+    
+  },
 
   sendFromSmtp: function () {},
 };
