@@ -38,6 +38,7 @@ server/api/services/localTransporter.js
 server/api/services/etherealTransporter.js
 server/api/services/mailtrapTransporter.js
 server/api/services/ethereal_configs.txt
+server/api/services/messageOptions.js
 
 # e2e
 /e2e/*.js
