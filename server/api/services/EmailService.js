@@ -97,9 +97,9 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const transporter = require("./mailtrapTransporter").createDefault();
 
-      const emailBody = mailGenerator.generate(messageOptions.emailFromMailGen);
+      const emailBody = mailGenerator.generate(messageOptions.mailGenSeedData);
       const emailText = mailGenerator.generatePlaintext(
-        messageOptions.emailFromMailGen
+        messageOptions.mailGenSeedData
       );
       require("fs").writeFileSync("preview.html", emailBody, "utf8");
 

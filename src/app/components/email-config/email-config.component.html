@@ -1,60 +1,77 @@
 <div class="container-md mx-5 p-5">
   <div class="row justify-content-center">
-    <div class="col-sm-6 mx-auto text-center">
+    <div class="col-sm-6 mx-auto">
       <div class="email-container border bg-light p-3">
         <h4>Create Email</h4>
+        <hr />
         <form [formGroup]="emailForm">
-          <div class="form-group">
-            <label for="to"></label>
-            <input
-              type="text"
-              id="to"
-              placeholder="employee@email.com"
-              formControlName="to"
-              class="form-control"
-            />
-
-            <label for="cc"></label>
-            <input
-              type="text"
-              id="cc"
-              placeholder="manager@email.com"
-              formControlName="cc"
-              class="form-control"
-            />
-
-            <label for="bcc"></label>
-            <input
-              type="text"
-              id="bcc"
-              placeholder="boss@email.com"
-              formControlName="bcc"
-              class="form-control"
-            />
+          <div class="form-group row">
+            <label for="to" class="col-sm-2 col-form-label">to:</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                id="to"
+                placeholder="employee@email.com"
+                formControlName="to"
+                class="form-control"
+              />
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="subject"></label>
-            <input
-              type="text"
-              id="subject"
-              placeholder="Subject"
-              formControlName="subject"
-              class="form-control"
-            />
-
-            <label for="body"></label>
-            <textarea
-              type="text"
-              rows="10"
-              id="body"
-              placeholder="Write your message here..."
-              formControlName="body"
-              class="form-control"
-            ></textarea>
+          <div class="form-group row">
+            <label for="cc" class="col-sm-2 col-form-label">cc:</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                id="cc"
+                placeholder="manager@email.com"
+                formControlName="cc"
+                class="form-control"
+              />
+            </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group row">
+            <label for="bcc" class="col-sm-2 col-form-label">bcc:</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                id="bcc"
+                placeholder="boss@email.com"
+                formControlName="bcc"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="subject" class="col-sm-2 col-form-label">Subject</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                id="subject"
+                placeholder="Subject"
+                formControlName="subject"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="body" class="col-sm-2 col-form-label">Body</label>
+            <div class="col-sm-10">
+              <textarea
+                type="text"
+                rows="10"
+                id="body"
+                placeholder="Write your message here..."
+                formControlName="body"
+                class="form-control"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="form-group text-center">
             <button class="btn" (click)="onSubmitEmail()">Send Email</button>
           </div>
         </form>
@@ -62,27 +79,69 @@
 
       <div class="config-container border bg-light mt-5 p-3">
         <h4>Email Configuration</h4>
+        <hr />
         <form ngSubmit="onSubmitConfig()" [formGroup]="configForm">
           <div class="form-group">
-            <label for="domain"></label>
-            <input
-              type="text"
-              id="domain"
-              placeholder="smtp.provider.com"
-              formControlName="domain"
-              class="form-control"
-            />
-            <label for="port"></label>
-            <input
-              type="text"
-              id="port"
-              placeholder="25"
-              formControlName="port"
-              class="form-control"
-            />
+            <div class="form-group row">
+              <label for="domain" class="col-sm-2 col-form-label"
+                >SMTP domain</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  id="domain"
+                  placeholder="smtp.provider.com"
+                  formControlName="domain"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="port" class="col-sm-2 col-form-label"
+                >SMTP port</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  id="port"
+                  placeholder="25"
+                  formControlName="port"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="" class="col-sm-2 col-form-label">Username</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="username"
+                  formControlName="username"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="" class="col-sm-2 col-form-label">Password</label>
+              <div class="col-sm-10">
+                <input
+                  type="password"
+                  id="password"
+                  placeholder=""
+                  formControlName="password"
+                  class="form-control"
+                />
+              </div>
+            </div>
           </div>
 
-          <button class="btn" (click)="onSubmitConfig()">Set Config</button>
+          <div class="text-center">
+            <button class="btn" (click)="onSubmitConfig()">Set Config</button>
+          </div>
         </form>
       </div>
     </div>
