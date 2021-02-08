@@ -21,6 +21,9 @@ module.exports = {
     });
   },
 
+  /**
+   * DEPRECATED (in favour of MailTrap)
+   */
   sendToEtherealSmtp: function () {
     return new Promise((resolve, reject) => {
       require("./etherealTransporter")
@@ -32,6 +35,9 @@ module.exports = {
     });
   },
 
+  /**
+   * DEPRECATED (in favour of MailTrap)
+   */
   sendToEtherealWithAttachment: function () {
     return new Promise((resolve, reject) => {
       require("./etherealTransporter")
@@ -72,6 +78,34 @@ module.exports = {
   },
 
   /**
+   * TODO: SPEC REQUIREMENT
+   */
+  sendToMailTrapWithCustomMessage: function () {
+    return new Promise((resolve, reject) => {});
+  },
+
+  /**
+   * TODO: SPEC REQUIREMENT
+   */
+  saveSmtpConfig: function () {
+    return new Promise((resolve, reject) => {});
+  },
+
+  /**
+   * TODO: SPEC REQUIREMENT
+   */
+  listSmtpConfigs: function () {
+    return new Promise((resolve, reject) => {});
+  },
+
+  /**
+   * TODO: SPEC REQUIREMENT
+   */
+  chooseActiveSmtpConfig: function () {
+    return new Promise((resolve, reject) => {});
+  },
+
+  /**
    * NB: NOT TESTED
    */
   sendToMailTrapWithDKIN: function () {
@@ -86,6 +120,7 @@ module.exports = {
   },
 
   /**
+   * SPEC: Nice to have
    * Can potentially be used to create basic 'templates' to create more attractive emails if these are ever needed.
    */
   scriptHtmlFromJs: () => {
@@ -121,9 +156,4 @@ module.exports = {
       );
     });
   },
-
-  /**
-   * 1. use local storage for POC
-   */
-  configureSmtpServer: () => {},
 };
