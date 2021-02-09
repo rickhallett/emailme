@@ -83,11 +83,16 @@ module.exports = {
   sendToMailTrapWithCustomMessage: function (request) {
     sails.log.debug("sendToMailTrapWithCustomMessage -> email", request);
 
+    sails.log.debug(
+      "generated email",
+      messageOptions.generateEmailFromRequest(request)
+    );
+
     return new Promise((resolve, reject) => {
       require("./mailtrapTransporter")
         .createDefaultTransporter()
         .sendMail(
-          messageOptions.generateEmailFromRequest({ request }),
+          messageOptions.generateEmailFromRequest(request),
           (err, success) => {
             if (err) return reject(new Error(err));
             else return resolve(success);

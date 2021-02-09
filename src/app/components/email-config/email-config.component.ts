@@ -28,12 +28,24 @@ export class EmailConfigComponent implements OnInit {
 
   public dev: false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.emailForm.setValue({
+      from: "'Example Team' <from@example.com>",
+      to: "user1@example.com, user2@example.com",
+      cc: "board@example.com",
+      bcc: "director@example.com",
+      subject: "Test Email",
+      body:
+        "This is a test email generated from within email-config-component.ts",
+      attachments: [],
+    });
+  }
 
   ngOnInit() {}
 
-  onSubmitEmail($event) {
-    // console.log("$event", $event);
+  ngOnViewChecked() {}
+
+  onSubmitEmail() {
     // console.log("this.emailForm", this.emailForm);
 
     // console.log(
@@ -41,9 +53,8 @@ export class EmailConfigComponent implements OnInit {
     //   this.emailForm.get("attachments").value
     // );
 
-    // const inspect = this.convertFormGroupToPayload(this.emailForm.value);
-
-    // console.log("convertFormGroupToPayload", inspect);
+    const inspect = this.convertFormGroupToPayload(this.emailForm.value);
+    console.log("convertFormGroupToPayload", inspect);
 
     // return;
 
@@ -60,9 +71,10 @@ export class EmailConfigComponent implements OnInit {
   convertFormGroupToPayload(formGroup: FormGroup) {
     return {
       ...this.emailForm.value,
-      attachments: this.emailForm.get("attachments").value
-        ? this.emailForm.get("attachments")
-        : [],
+      attachments:
+        this.emailForm.get("attachments").value.length > 0
+          ? this.emailForm.get("attachments")
+          : [],
     };
   }
 

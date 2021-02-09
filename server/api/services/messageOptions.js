@@ -68,8 +68,7 @@ module.exports = {
   },
 
   generateEmailFromRequest: function (request) {
-    console.log("generateEmailFromRequest ->", request);
-    return ({ from, to, subject, text, html } = { request });
+    return ({ from, to, subject, text, html } = request);
   },
 
   /**
