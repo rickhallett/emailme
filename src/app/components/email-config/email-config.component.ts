@@ -9,6 +9,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 })
 export class EmailConfigComponent implements OnInit {
   public emailForm: FormGroup = new FormGroup({
+    from: new FormControl(),
     to: new FormControl(),
     cc: new FormControl(),
     bcc: new FormControl(),
@@ -32,29 +33,28 @@ export class EmailConfigComponent implements OnInit {
   ngOnInit() {}
 
   onSubmitEmail($event) {
-    console.log("$event", $event);
-    console.log("this.emailForm", this.emailForm);
+    // console.log("$event", $event);
+    // console.log("this.emailForm", this.emailForm);
 
-    console.log(
-      'this.emailForm.get("attachments").value',
-      this.emailForm.get("attachments").value
-    );
+    // console.log(
+    //   'this.emailForm.get("attachments").value',
+    //   this.emailForm.get("attachments").value
+    // );
 
-    const inspect = this.convertFormGroupToPayload(this.emailForm.value);
+    // const inspect = this.convertFormGroupToPayload(this.emailForm.value);
 
-    console.log("convertFormGroupToPayload", inspect);
+    // console.log("convertFormGroupToPayload", inspect);
 
-    return;
+    // return;
 
-    // this.http
-    //   .post(
-    //     "http://localhost:1337/api/emailer/sendmail",
-    //     this.convertFormGroupToPayload(this.emailForm.value)
-    //   )
-    //   .subscribe((response) => {
-    //     console.log("after http");
-    //     console.log(response);
-    //   });
+    this.http
+      .post(
+        "http://localhost:1337/api/emailer/sendmail",
+        this.convertFormGroupToPayload(this.emailForm.value)
+      )
+      .subscribe((response) => {
+        console.log("after http post", response);
+      });
   }
 
   convertFormGroupToPayload(formGroup: FormGroup) {

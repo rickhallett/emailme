@@ -6,6 +6,19 @@
         <hr />
         <form [formGroup]="emailForm">
           <div class="form-group row">
+            <label for="to" class="col-sm-2 col-form-label">from:</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                id="from"
+                placeholder="employee@email.com"
+                formControlName="from"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="form-group row">
             <label for="to" class="col-sm-2 col-form-label">to:</label>
             <div class="col-sm-10">
               <input

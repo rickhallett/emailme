@@ -81,13 +81,13 @@ module.exports = {
    * TODO: SPEC REQUIREMENT
    */
   sendToMailTrapWithCustomMessage: function (request) {
-    sails.log.debug("sendToMailTrapWithCustomMessage -> email", email);
+    sails.log.debug("sendToMailTrapWithCustomMessage -> email", request);
 
     return new Promise((resolve, reject) => {
       require("./mailtrapTransporter")
         .createDefaultTransporter()
         .sendMail(
-          messageOptions.generateEmailFromRequest(request),
+          messageOptions.generateEmailFromRequest({ request }),
           (err, success) => {
             if (err) return reject(new Error(err));
             else return resolve(success);

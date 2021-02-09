@@ -16,7 +16,7 @@ module.exports = {
    */
   sendEmail: function (req, res) {
     //temp just to check wiring
-    // sails.log.info(req.body);
+    sails.log.debug("EmailController:sendEmail()", req.body);
 
     emailService
       .sendToMailTrapWithCustomMessage(req.body)
