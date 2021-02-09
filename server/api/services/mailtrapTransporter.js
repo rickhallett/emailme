@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const keys = require("../../config/keys");
 
 module.exports = {
-  createDefault: () => {
+  createDefaultTransporter: () => {
     return nodemailer.createTransport({
       ...keys.mailTrap.default,
     });

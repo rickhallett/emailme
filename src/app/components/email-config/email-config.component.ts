@@ -31,15 +31,39 @@ export class EmailConfigComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSubmitEmail() {
-    console.log(this.emailForm);
+  onSubmitEmail($event) {
+    console.log("$event", $event);
+    console.log("this.emailForm", this.emailForm);
 
-    this.http
-      .get("http://localhost:1337/email/sendEmail")
-      .subscribe((response) => {
-        console.log("after http");
-        console.log(response);
-      });
+    console.log(
+      'this.emailForm.get("attachments").value',
+      this.emailForm.get("attachments").value
+    );
+
+    const inspect = this.convertFormGroupToPayload(this.emailForm.value);
+
+    console.log("convertFormGroupToPayload", inspect);
+
+    return;
+
+    // this.http
+    //   .post(
+    //     "http://localhost:1337/api/emailer/sendmail",
+    //     this.convertFormGroupToPayload(this.emailForm.value)
+    //   )
+    //   .subscribe((response) => {
+    //     console.log("after http");
+    //     console.log(response);
+    //   });
+  }
+
+  convertFormGroupToPayload(formGroup: FormGroup) {
+    return {
+      ...this.emailForm.value,
+      attachments: this.emailForm.get("attachments").value
+        ? this.emailForm.get("attachments")
+        : [],
+    };
   }
 
   onSubmitConfig() {

@@ -66,4 +66,28 @@ module.exports = {
       html: body,
     };
   },
+
+  generateEmailFromRequest: function ({ request }) {
+    console.log("generateEmailFromRequest ->", request);
+    return {
+      from,
+      to,
+      subject,
+      text,
+      html,
+    };
+  },
+
+  /**
+   * TODO: create a FormControl that can accept more than one attachment file
+   */
+  generateEmailWithAttachmentFromRequest: function ({ request }) {
+    return {
+      from,
+      to,
+      subject,
+      text,
+      html,
+    };
+  },
 };

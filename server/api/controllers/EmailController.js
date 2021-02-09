@@ -16,8 +16,10 @@ module.exports = {
    */
   sendEmail: function (req, res) {
     //temp just to check wiring
+    // sails.log.info(req.body);
+
     emailService
-      .sendToMailTrapSmtp()
+      .sendToMailTrapWithCustomMessage(req.body)
       .then((result) => this.successHandler.apply(this, [result, res]))
       .catch((error) => this.successHandler.apply(this, [error, res]));
 

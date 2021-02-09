@@ -69,7 +69,7 @@ module.exports = {
   sendToMailTrapWithAttachment: function () {
     return new Promise((resolve, reject) => {
       require("./mailtrapTransporter")
-        .createDefault()
+        .createDefaultTransporter()
         .sendMail(messageOptions.messageWithAttachments, (err, success) => {
           if (err) return reject(new Error(err));
           else return resolve(success);
@@ -80,8 +80,20 @@ module.exports = {
   /**
    * TODO: SPEC REQUIREMENT
    */
-  sendToMailTrapWithCustomMessage: function () {
-    return new Promise((resolve, reject) => {});
+  sendToMailTrapWithCustomMessage: function (request) {
+    sails.log.debug("sendToMailTrapWithCustomMessage -> email", email);
+
+    return new Promise((resolve, reject) => {
+      require("./mailtrapTransporter")
+        .createDefaultTransporter()
+        .sendMail(
+          messageOptions.generateEmailFromRequest(request),
+          (err, success) => {
+            if (err) return reject(new Error(err));
+            else return resolve(success);
+          }
+        );
+    });
   },
 
   /**
