@@ -15,9 +15,6 @@ module.exports = {
    * 2. server side requirements for certain fields (from, to, subject, body)
    */
   sendEmail: function (req, res) {
-    //temp just to check wiring
-    sails.log.debug("EmailController:sendEmail()", req.body);
-
     emailService
       .sendToMailTrapWithCustomMessage(req.body)
       .then((result) => this.successHandler.apply(this, [result, res]))

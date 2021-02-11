@@ -8,9 +8,11 @@ import { Router } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { EmailConfigComponent } from "./components/email-config/email-config.component";
+import { InspectorComponent } from './components/inspector/inspector.component';
+import { SmtpConfigComponent } from './components/smtp-config/smtp-config.component';
 
 @NgModule({
-  declarations: [AppComponent, EmailConfigComponent],
+  declarations: [AppComponent, EmailConfigComponent, InspectorComponent, SmtpConfigComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

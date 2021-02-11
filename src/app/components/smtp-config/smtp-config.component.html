@@ -1,0 +1,104 @@
+<div class="config-container border bg-light mt-5 p-3">
+  <h4>Email Configuration</h4>
+  <hr />
+  <form ngSubmit="onSubmitConfig()" [formGroup]="configForm">
+    <div class="form-group">
+      <div class="form-group row">
+        <label for="domain" class="col-sm-2 col-form-label">SMTP domain</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            id="domain"
+            placeholder="smtp.provider.com"
+            formControlName="domain"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="port" class="col-sm-2 col-form-label">SMTP port</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            id="port"
+            placeholder="25"
+            formControlName="port"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <!-- Auth Section -->
+
+      <div class="form-group row pl-3 pt-1">
+        <div class="custom-control custom-switch col-sm-12">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="auth-switch"
+            [value]="authUI"
+            (input)="authUI = !authUI"
+          />
+          <label class="custom-control-label" for="auth-switch">Auth</label>
+        </div>
+
+        <ng-container *ngIf="authUI">
+          <label for="" class="col-sm-2 col-form-label">Username</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              id="username"
+              placeholder="username"
+              formControlName="username"
+              class="form-control"
+            />
+          </div>
+
+          <label for="" class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-10">
+            <input
+              type="password"
+              id="password"
+              placeholder=""
+              formControlName="password"
+              class="form-control"
+            />
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- DKIM Section -->
+
+      <div class="form-group row pl-3 pt-1">
+        <div class="custom-control custom-switch col-sm-12">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="dkim-switch"
+            [value]="dkimUI"
+            (input)="dkimUI = !dkimUI"
+          />
+          <label class="custom-control-label" for="dkim-switch">DKIM</label>
+        </div>
+
+        <ng-container *ngIf="dkimUI">
+          <label for="dkim" class="col-sm-2 col-form-label">DKIM Key</label>
+          <div class="col-sm-10">
+            <input
+              type="file"
+              multiple
+              id="dkim"
+              formControlName="dkim"
+              class="form-control"
+            />
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button class="btn" (click)="onSubmitConfig()">Set Config</button>
+    </div>
+  </form>
+</div>

@@ -81,8 +81,6 @@ module.exports = {
    * TODO: SPEC REQUIREMENT
    */
   sendToMailTrapWithCustomMessage: function (request) {
-    sails.log.debug("sendToMailTrapWithCustomMessage -> email", request);
-
     sails.log.debug(
       "generated email",
       messageOptions.generateEmailFromRequest(request)

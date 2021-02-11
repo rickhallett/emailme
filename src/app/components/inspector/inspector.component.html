@@ -1,0 +1,75 @@
+<div class="inspect-container border bg-light p-3">
+  <h4>Inspect</h4>
+
+  <p class="text-secondary switches">
+    copies:{{ copies }} | authUI:{{ authUI }} | dkimUI:{{ dkimUI }}
+  </p>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Field</th>
+        <th scope="col">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        [class]="emailForm.get('to').value ? 'table-success' : 'table-danger'"
+      >
+        <th scope="row">1</th>
+        <td>to</td>
+        <td>{{ emailForm.get("to").value || "null" }}</td>
+      </tr>
+      <tr
+        [class]="emailForm.get('cc').value ? 'table-success' : 'table-danger'"
+      >
+        <th scope="row">2</th>
+        <td>cc</td>
+        <td>{{ emailForm.get("cc").value || "null" }}</td>
+      </tr>
+      <tr
+        [class]="emailForm.get('bcc').value ? 'table-success' : 'table-danger'"
+      >
+        <th scope="row">3</th>
+        <td>bcc</td>
+        <td>{{ emailForm.get("bcc").value || "null" }}</td>
+      </tr>
+      <tr
+        [class]="
+          emailForm.get('subject').value ? 'table-success' : 'table-danger'
+        "
+      >
+        <th scope="row">4</th>
+        <td>subject</td>
+        <td>{{ emailForm.get("subject").value || "null" }}</td>
+      </tr>
+      <tr
+        [class]="emailForm.get('body').value ? 'table-success' : 'table-danger'"
+      >
+        <th scope="row">5</th>
+        <td>body</td>
+        <td>{{ emailForm.get("body").value || "null" }}</td>
+      </tr>
+
+      <tr
+        [class]="
+          configForm.get('domain').value ? 'table-success' : 'table-danger'
+        "
+      >
+        <th scope="row">6</th>
+        <td>domain</td>
+        <td>{{ configForm.get("domain").value || "null" }}</td>
+      </tr>
+      <tr
+        [class]="
+          configForm.get('port').value ? 'table-success' : 'table-danger'
+        "
+      >
+        <th scope="row">7</th>
+        <td>tport</td>
+        <td>{{ configForm.get("port").value || "null" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -2,6 +2,17 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 
+type SmtpServerConfig = {
+  id: number;
+  name: string;
+  host: string;
+  port: number;
+  auth: {
+    user: string;
+    pass: string;
+  };
+};
+
 @Component({
   selector: "app-email-config",
   templateUrl: "./email-config.component.html",
@@ -16,20 +27,19 @@ export class EmailConfigComponent implements OnInit {
     subject: new FormControl(),
     body: new FormControl(),
     attachments: new FormControl(),
+    smtpServer: new FormControl(),
   });
 
-  public configForm: FormGroup = new FormGroup({
-    domain: new FormControl(),
-    port: new FormControl(),
-    username: new FormControl(),
-    password: new FormControl(),
-    dkim: new FormControl(),
-  });
+  public smtpServerConfigs: SmtpServerConfig[] = [];
 
-  public dev: false;
+  public dev: boolean = false;
+  public copies: boolean = false;
+  public authUI: boolean = false;
+  public dkimUI: boolean = false;
+  public toggleConfig: boolean = true;
 
   constructor(private http: HttpClient) {
-    this.emailForm.setValue({
+    this.emailForm.patchValue({
       from: "'Example Team' <from@example.com>",
       to: "user1@example.com, user2@example.com",
       cc: "board@example.com",
@@ -39,25 +49,37 @@ export class EmailConfigComponent implements OnInit {
         "This is a test email generated from within email-config-component.ts",
       attachments: [],
     });
+
+    /**
+     * Error: Uncaught (in promise): Error: Must supply a value for form control with name: 'smtpServer'. forEach@[native code] EmailConfigComponent
+     * createClass createDirectiveInstance createViewNodes createRootView callWithDebugContext forEach@[native code] forEach@[native code]
+     */
+    this.http
+      .get<SmtpServerConfig[]>("http://localhost:3000/smtpconfigs")
+      .subscribe((configs) => {
+        console.log("configs returned from json-server", configs);
+        this.smtpServerConfigs = configs;
+        // this.emailForm.patchValue({ smtpServer: configs[0] });
+      });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getSmtpConfigs();
+  }
 
   ngOnViewChecked() {}
 
+  toggleDevMode() {
+    this.dev = !this.dev;
+  }
+
+  getSmtpConfigs() {}
+
+  formatConfigSelectOption(config: SmtpServerConfig) {
+    return `${config.name}: [host: ${config.host}] [port: ${config.port}] [user: ${config.auth.user}]`;
+  }
+
   onSubmitEmail() {
-    // console.log("this.emailForm", this.emailForm);
-
-    // console.log(
-    //   'this.emailForm.get("attachments").value',
-    //   this.emailForm.get("attachments").value
-    // );
-
-    const inspect = this.convertFormGroupToPayload(this.emailForm.value);
-    console.log("convertFormGroupToPayload", inspect);
-
-    // return;
-
     this.http
       .post(
         "http://localhost:1337/api/emailer/sendmail",
@@ -77,10 +99,4 @@ export class EmailConfigComponent implements OnInit {
           : [],
     };
   }
-
-  onSubmitConfig() {
-    console.log(this.configForm);
-  }
-
-  checkExistingConfigs() {}
 }

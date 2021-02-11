@@ -2,7 +2,11 @@
   <div class="row justify-content-center">
     <div class="col-sm-6 mx-auto">
       <div class="email-container border bg-light p-3">
-        <h4>Create Email</h4>
+        <div class="row justify-content-between p-3">
+          <h4>Create Email</h4>
+          <button class="btn btn-dark" (click)="toggleDevMode()">dev</button>
+        </div>
+
         <hr />
         <form [formGroup]="emailForm">
           <div class="form-group row">
@@ -31,30 +35,46 @@
             </div>
           </div>
 
-          <div class="form-group row">
-            <label for="cc" class="col-sm-2 col-form-label">cc:</label>
-            <div class="col-sm-10">
+          <div class="form-group row pl-3 pt-1">
+            <div class="custom-control custom-switch col-sm-12">
               <input
-                type="text"
-                id="cc"
-                placeholder="manager@email.com"
-                formControlName="cc"
-                class="form-control"
+                type="checkbox"
+                class="custom-control-input"
+                id="copies-switch"
+                [value]="copies"
+                (input)="copies = !copies"
               />
+              <label class="custom-control-label" for="copies-switch"
+                >Copies</label
+              >
             </div>
-          </div>
 
-          <div class="form-group row">
-            <label for="bcc" class="col-sm-2 col-form-label">bcc:</label>
-            <div class="col-sm-10">
-              <input
-                type="text"
-                id="bcc"
-                placeholder="boss@email.com"
-                formControlName="bcc"
-                class="form-control"
-              />
-            </div>
+            <ng-container *ngIf="copies">
+              <label for="cc" class="col-sm-2 col-form-label">cc:</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  id="cc"
+                  placeholder="manager@email.com"
+                  formControlName="cc"
+                  class="form-control"
+                />
+              </div>
+
+              <!-- TODO: why are these elements not responsive to bootstrap or inline spacer modifications? -->
+              <hr class="mt-2" style="height: 10px" />
+
+              <label for="bcc" class="col-sm-2 col-form-label">bcc:</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  id="bcc"
+                  placeholder="boss@email.com"
+                  formControlName="bcc"
+                  class="form-control"
+                />
+              </div>
+            </ng-container>
           </div>
 
           <div class="form-group row">
@@ -99,197 +119,43 @@
             </div>
           </div>
 
+          <div class="form-group row">
+            <label for="attachments" class="col-sm-2 col-form-label"
+              >SMTP Server</label
+            >
+            <div class="col-sm-10">
+              <select formControlName="smtpServer" class="custom-select">
+                <option
+                  *ngFor="let config of smtpServerConfigs"
+                  [ngValue]="config.name"
+                >
+                  {{ formatConfigSelectOption(config) }}
+                </option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-group text-center">
             <button class="btn" (click)="onSubmitEmail()">Send Email</button>
           </div>
         </form>
       </div>
 
-      <div class="config-container border bg-light mt-5 p-3">
-        <h4>Email Configuration</h4>
-        <hr />
-        <form ngSubmit="onSubmitConfig()" [formGroup]="configForm">
-          <div class="form-group">
-            <div class="form-group row">
-              <label for="domain" class="col-sm-2 col-form-label"
-                >SMTP domain</label
-              >
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  id="domain"
-                  placeholder="smtp.provider.com"
-                  formControlName="domain"
-                  class="form-control"
-                />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="port" class="col-sm-2 col-form-label"
-                >SMTP port</label
-              >
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  id="port"
-                  placeholder="25"
-                  formControlName="port"
-                  class="form-control"
-                />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="" class="col-sm-2 col-form-label">Username</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  id="username"
-                  placeholder="username"
-                  formControlName="username"
-                  class="form-control"
-                />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="" class="col-sm-2 col-form-label">Password</label>
-              <div class="col-sm-10">
-                <input
-                  type="password"
-                  id="password"
-                  placeholder=""
-                  formControlName="password"
-                  class="form-control"
-                />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="dkim" class="col-sm-2 col-form-label">DKIM Key</label>
-              <div class="col-sm-10">
-                <input
-                  type="file"
-                  multiple
-                  id="dkim"
-                  formControlName="dkim"
-                  class="form-control"
-                />
-              </div>
-            </div>
-
-            <!-- Option 2 -->
-            <!-- <div class="input-group">
-              <div class="custom-file">
-                <input
-                  type="file"
-                  class="custom-file-input"
-                  id="inputGroupFile04"
-                />
-                <label class="custom-file-label" for="inputGroupFile04"
-                  >Choose DKIM file</label
-                >
-              </div>
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">
-                  Button
-                </button>
-              </div>
-            </div> -->
-          </div>
-
-          <div class="text-center">
-            <button class="btn" (click)="onSubmitConfig()">Set Config</button>
-          </div>
-        </form>
-      </div>
+      <button class="btn btn-secondary" (click)="toggleConfig = !toggleConfig">
+        Add new SMTP Configuration
+      </button>
+      <ng-container *ngIf="toggleConfig">
+        <app-smtp-config [authUI]="authUI" [dkimUI]="dkimUI"></app-smtp-config>
+      </ng-container>
     </div>
 
     <div *ngIf="dev" class="col-sm-6 mx-auto text-center">
-      <div class="inspect-container border bg-light p-3">
-        <h4>Inspect</h4>
-
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Field</th>
-              <th scope="col">Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              [class]="
-                emailForm.get('to').value ? 'table-success' : 'table-danger'
-              "
-            >
-              <th scope="row">1</th>
-              <td>to</td>
-              <td>{{ emailForm.get("to").value || "null" }}</td>
-            </tr>
-            <tr
-              [class]="
-                emailForm.get('cc').value ? 'table-success' : 'table-danger'
-              "
-            >
-              <th scope="row">2</th>
-              <td>cc</td>
-              <td>{{ emailForm.get("cc").value || "null" }}</td>
-            </tr>
-            <tr
-              [class]="
-                emailForm.get('bcc').value ? 'table-success' : 'table-danger'
-              "
-            >
-              <th scope="row">3</th>
-              <td>bcc</td>
-              <td>{{ emailForm.get("bcc").value || "null" }}</td>
-            </tr>
-            <tr
-              [class]="
-                emailForm.get('subject').value
-                  ? 'table-success'
-                  : 'table-danger'
-              "
-            >
-              <th scope="row">4</th>
-              <td>subject</td>
-              <td>{{ emailForm.get("subject").value || "null" }}</td>
-            </tr>
-            <tr
-              [class]="
-                emailForm.get('body').value ? 'table-success' : 'table-danger'
-              "
-            >
-              <th scope="row">5</th>
-              <td>body</td>
-              <td>{{ emailForm.get("body").value || "null" }}</td>
-            </tr>
-
-            <tr
-              [class]="
-                configForm.get('domain').value
-                  ? 'table-success'
-                  : 'table-danger'
-              "
-            >
-              <th scope="row">6</th>
-              <td>domain</td>
-              <td>{{ configForm.get("domain").value || "null" }}</td>
-            </tr>
-            <tr
-              [class]="
-                configForm.get('port').value ? 'table-success' : 'table-danger'
-              "
-            >
-              <th scope="row">7</th>
-              <td>tport</td>
-              <td>{{ configForm.get("port").value || "null" }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <app-inspector
+        [copies]="copies"
+        [authUI]="authUI"
+        [dkimUI]="dkimUI"
+        [emailForm]="emailForm"
+      ></app-inspector>
     </div>
   </div>
 </div>

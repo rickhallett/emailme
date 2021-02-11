@@ -1,0 +1,44 @@
+{
+  "smtpconfigs": [
+    {
+      "id": 1,
+      "name": "Server 1",
+      "host": "smtp.mailtrap.io",
+      "port": 2525,
+      "auth": {
+        "user": "2e669db3ede9f9",
+        "pass": "ae22c87caa843b"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Server 2",
+      "host": "smtp.gmail.io",
+      "port": 2525,
+      "auth": {
+        "user": "2e669db3ede9f9",
+        "pass": "ae22c87caa843b"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Server 3",
+      "host": "smtp.outlook.io",
+      "port": 2525,
+      "auth": {
+        "user": "2e669db3ede9f9",
+        "pass": "ae22c87caa843b"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Server 4",
+      "host": "smtp.internal.io",
+      "port": 2525,
+      "auth": {
+        "user": "2e669db3ede9f9",
+        "pass": "ae22c87caa843b"
+      }
+    }
+  ]
+}
