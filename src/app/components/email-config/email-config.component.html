@@ -141,8 +141,12 @@
         </form>
       </div>
 
-      <button class="btn btn-secondary" (click)="toggleConfig = !toggleConfig">
+      <button
+        class="btn btn-secondary m-3"
+        (click)="toggleConfig = !toggleConfig"
+      >
         Add new SMTP Configuration
+        <i class="fa fa-plus"></i>
       </button>
       <ng-container *ngIf="toggleConfig">
         <app-smtp-config [authUI]="authUI" [dkimUI]="dkimUI"></app-smtp-config>

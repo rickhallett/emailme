@@ -49,4 +49,5 @@ module.exports.routes = {
 
   "get /api/emailer/config": "EmailController.getConfigs",
   "post /api/emailer/config": "EmailController.setConfigs",
+  "patch /api/emailer/config": "ConfigController.saveConfig",
 };

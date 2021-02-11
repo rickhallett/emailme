@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
+import { EmailConfigService } from "../../services/email-config.service";
 
-type SmtpServerConfig = {
+export type SmtpServerConfig = {
   id: number;
   name: string;
   host: string;
@@ -38,7 +39,10 @@ export class EmailConfigComponent implements OnInit {
   public dkimUI: boolean = false;
   public toggleConfig: boolean = true;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private emailConfigService: EmailConfigService
+  ) {
     this.emailForm.patchValue({
       from: "'Example Team' <from@example.com>",
       to: "user1@example.com, user2@example.com",
@@ -49,18 +53,6 @@ export class EmailConfigComponent implements OnInit {
         "This is a test email generated from within email-config-component.ts",
       attachments: [],
     });
-
-    /**
-     * Error: Uncaught (in promise): Error: Must supply a value for form control with name: 'smtpServer'. forEach@[native code] EmailConfigComponent
-     * createClass createDirectiveInstance createViewNodes createRootView callWithDebugContext forEach@[native code] forEach@[native code]
-     */
-    this.http
-      .get<SmtpServerConfig[]>("http://localhost:3000/smtpconfigs")
-      .subscribe((configs) => {
-        console.log("configs returned from json-server", configs);
-        this.smtpServerConfigs = configs;
-        // this.emailForm.patchValue({ smtpServer: configs[0] });
-      });
   }
 
   ngOnInit() {
@@ -73,7 +65,16 @@ export class EmailConfigComponent implements OnInit {
     this.dev = !this.dev;
   }
 
-  getSmtpConfigs() {}
+  getSmtpConfigs() {
+    this.emailConfigService.getSmtpConfigs<SmtpServerConfig>().subscribe(
+      (configs) => {
+        this.smtpServerConfigs = configs;
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
 
   formatConfigSelectOption(config: SmtpServerConfig) {
     return `${config.name}: [host: ${config.host}] [port: ${config.port}] [user: ${config.auth.user}]`;

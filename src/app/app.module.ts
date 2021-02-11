@@ -8,11 +8,17 @@ import { Router } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { EmailConfigComponent } from "./components/email-config/email-config.component";
-import { InspectorComponent } from './components/inspector/inspector.component';
-import { SmtpConfigComponent } from './components/smtp-config/smtp-config.component';
+import { InspectorComponent } from "./components/inspector/inspector.component";
+import { SmtpConfigComponent } from "./components/smtp-config/smtp-config.component";
+import { EmailConfigService } from "./services/email-config.service";
 
 @NgModule({
-  declarations: [AppComponent, EmailConfigComponent, InspectorComponent, SmtpConfigComponent],
+  declarations: [
+    AppComponent,
+    EmailConfigComponent,
+    InspectorComponent,
+    SmtpConfigComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,7 +26,7 @@ import { SmtpConfigComponent } from './components/smtp-config/smtp-config.compon
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [EmailConfigService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
