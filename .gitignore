@@ -34,8 +34,6 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-server/api/services/ethereal_configs.txt
-server/config/keys.js
 
 # e2e
 /e2e/*.js
