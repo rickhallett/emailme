@@ -135,19 +135,16 @@
             </div>
           </div>
 
-          <div class="form-group text-center">
+          <div class="form-group text-center row justify-content-between mx-1">
+            <button class="btn btn-secondary" (click)="toggleConfigUI()">
+              Add new SMTP Configuration
+              <i class="fa fa-plus pl-1"></i>
+            </button>
             <button class="btn" (click)="onSubmitEmail()">Send Email</button>
           </div>
         </form>
       </div>
 
-      <button
-        class="btn btn-secondary m-3"
-        (click)="toggleConfig = !toggleConfig"
-      >
-        Add new SMTP Configuration
-        <i class="fa fa-plus"></i>
-      </button>
       <ng-container *ngIf="toggleConfig">
         <app-smtp-config [authUI]="authUI" [dkimUI]="dkimUI"></app-smtp-config>
       </ng-container>

@@ -6,8 +6,8 @@
       "host": "smtp.mailtrap.io",
       "port": 2525,
       "auth": {
-        "user": "2e669db3ede9f9",
-        "pass": "ae22c87caa843b"
+        "user": "",
+        "pass": ""
       }
     },
     {
@@ -16,8 +16,8 @@
       "host": "smtp.gmail.io",
       "port": 2525,
       "auth": {
-        "user": "2e669db3ede9f9",
-        "pass": "ae22c87caa843b"
+        "user": "",
+        "pass": ""
       }
     },
     {
@@ -26,8 +26,8 @@
       "host": "smtp.outlook.io",
       "port": 2525,
       "auth": {
-        "user": "2e669db3ede9f9",
-        "pass": "ae22c87caa843b"
+        "user": "",
+        "pass": ""
       }
     },
     {
@@ -36,8 +36,8 @@
       "host": "smtp.internal.io",
       "port": 2525,
       "auth": {
-        "user": "2e669db3ede9f9",
-        "pass": "ae22c87caa843b"
+        "user": "",
+        "pass": ""
       }
     }
   ]

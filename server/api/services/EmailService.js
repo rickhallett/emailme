@@ -22,34 +22,6 @@ module.exports = {
   },
 
   /**
-   * DEPRECATED (in favour of MailTrap)
-   */
-  sendToEtherealSmtp: function () {
-    return new Promise((resolve, reject) => {
-      require("./etherealTransporter")
-        .createDefault()
-        .sendMail(messageOptions.outgoingMessage, (err, success) => {
-          if (err) return reject(new Error(err));
-          else return resolve(success);
-        });
-    });
-  },
-
-  /**
-   * DEPRECATED (in favour of MailTrap)
-   */
-  sendToEtherealWithAttachment: function () {
-    return new Promise((resolve, reject) => {
-      require("./etherealTransporter")
-        .createDefault()
-        .sendMail(messageOptions.messageWithAttachments, (err, success) => {
-          if (err) return reject(new Error(err));
-          else return resolve(success);
-        });
-    });
-  },
-
-  /**
    * SPEC REQUIREMENT
    */
   sendToMailTrapSmtp: function () {

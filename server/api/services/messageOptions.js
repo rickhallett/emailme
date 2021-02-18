@@ -33,10 +33,6 @@ module.exports = {
         filename: "logo",
         path: "/Users/kaishin/dev/ts/emailme/server/api/services/doge.ico",
       },
-      {
-        filename: "pdf",
-        path: "/Users/kaishin/dev/ts/emailme/server/api/services/blockH.pdf",
-      },
     ],
   },
 

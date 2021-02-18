@@ -19,8 +19,6 @@ module.exports = {
       .sendToMailTrapWithCustomMessage(req.body)
       .then((result) => this.successHandler.apply(this, [result, res]))
       .catch((error) => this.successHandler.apply(this, [error, res]));
-
-    // real version needs to pull properties of req and construct the email
   },
 
   setSmtpConfigs: function (req, res) {},
@@ -46,6 +44,7 @@ module.exports = {
             sails.log.info(
               "Restarting server; sometimes the dynamic IP has changed and is allowed through my local firewall."
             );
+            // writeFileSync forces nodemon to reload
             fs.writeFileSync(
               "restart.js",
               `// restart ${Date.now()} ${err.message}\n`,
@@ -58,20 +57,6 @@ module.exports = {
         res.status(500);
         res.send(err);
       });
-  },
-
-  etherealMail: function (req, res) {
-    emailService
-      .sendToEtherealSmtp()
-      .then((result) => this.successHandler.apply(this, [result, res]))
-      .catch((error) => this.successHandler.apply(this, [error, res]));
-  },
-
-  etherealMailAttachment: function (req, res) {
-    emailService
-      .sendToEtherealWithAttachment()
-      .then((result) => this.successHandler.apply(this, [result, res]))
-      .catch((error) => this.successHandler.apply(this, [error, res]));
   },
 
   mailtrapMailAttachment: function (req, res) {
@@ -88,6 +73,7 @@ module.exports = {
       .catch((error) => this.successHandler.apply(this, [error, res]));
   },
 
+  // TODO: standardise API responses
   getConfigs: function (req, res) {
     return res.json({
       success: true,
@@ -96,6 +82,7 @@ module.exports = {
     });
   },
 
+  // TODO: standardise API responses
   setConfigs: function (req, res) {
     return res.json({
       success: true,
@@ -104,12 +91,14 @@ module.exports = {
     });
   },
 
+  // Generic success handler. Probably an unncessary overcomplication
   successHandler: function (result, res) {
     sails.log.info(result);
     res.status(200);
     res.send(result);
   },
 
+  // Generic error handler. Probably an unncessary overcomplication
   errorHandler: function (error, res) {
     sails.log.error(error);
     res.status(500);

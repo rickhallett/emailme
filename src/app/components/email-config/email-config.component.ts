@@ -37,7 +37,7 @@ export class EmailConfigComponent implements OnInit {
   public copies: boolean = false;
   public authUI: boolean = false;
   public dkimUI: boolean = false;
-  public toggleConfig: boolean = true;
+  public toggleConfig: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -65,8 +65,12 @@ export class EmailConfigComponent implements OnInit {
     this.dev = !this.dev;
   }
 
+  toggleConfigUI() {
+    this.toggleConfig = !this.toggleConfig;
+  }
+
   getSmtpConfigs() {
-    this.emailConfigService.getSmtpConfigs<SmtpServerConfig>().subscribe(
+    this.emailConfigService.getSmtpConfigs<SmtpServerConfig[]>().subscribe(
       (configs) => {
         this.smtpServerConfigs = configs;
       },

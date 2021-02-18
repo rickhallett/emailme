@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
@@ -24,5 +24,6 @@ export class SmtpConfigComponent implements OnInit {
 
   onSubmitConfig() {}
 
+  // TODO: component to check configurations that currently exist to prevent duplicates
   checkExistingConfigs() {}
 }
